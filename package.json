@@ -1,20 +1,27 @@
 {
-  "name": "express-basic-api",
-  "version": "1.0.0",
-  "description": "Express Basic API",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ahmetozmtn/express-basic-api.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/ahmetozmtn/express-basic-api/issues"
-  },
-  "homepage": "https://github.com/ahmetozmtn/express-basic-api#readme"
+    "name": "express-basic-api",
+    "version": "1.0.0",
+    "description": "Express Basic API",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "nodemon index.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/ahmetozmtn/express-basic-api.git"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/ahmetozmtn/express-basic-api/issues"
+    },
+    "homepage": "https://github.com/ahmetozmtn/express-basic-api#readme",
+    "dependencies": {
+        "express": "^4.18.2"
+    },
+    "devDependencies": {
+        "nodemon": "^3.0.3"
+    }
 }

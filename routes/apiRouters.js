@@ -13,4 +13,13 @@ router.use("/users", (req, res) => {
     }
 });
 
+router.use("/movies", (req, res) => {
+    if (req.method != "GET") {
+        res.status(405);
+        res.json({ error: "Method not allowed" });
+    } else {
+        res.status(200);
+        res.json(dataMovies.movies);
+    }
+});
 module.exports = router;

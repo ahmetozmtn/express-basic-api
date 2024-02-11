@@ -3,7 +3,7 @@ const apiRouters = require("./routes/apiRouters");
 
 const app = express();
 
-app.use(apiRouters);
+app.use("/api/v1", apiRouters);
 
 app.listen(3000);
 

@@ -1,7 +1,0 @@
-{
-    "movies": [
-        { "id": 1, "title": "Film 1", "year": 2020 },
-        { "id": 2, "title": "Film 2", "year": 2021 },
-        { "id": 3, "title": "Film 3", "year": 2022 }
-    ]
-}

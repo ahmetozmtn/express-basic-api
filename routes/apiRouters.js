@@ -11,6 +11,17 @@ router.get("/users", (req, res) => {
     res.json(dataUsers.users);
 });
 
+router.get("/users/:id/todos", (req, res) => {
+    const userId = req.params.id;
+    console.log(userId);
+    const user = dataUsers.users.find((user) => user.id == userId);
+    if (user) {
+        res.status(200).json(user.todos);
+    } else {
+        res.status(404).json({ error: "User not found" });
+    }
+});
+
 router.get("/users/:id", (req, res) => {
     const userId = req.params.id;
     const user = dataUsers.users.find((user) => user.id == userId);

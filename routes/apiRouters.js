@@ -11,6 +11,16 @@ router.get("/users", (req, res) => {
     res.json(dataUsers.users);
 });
 
+router.get("/users/:id", (req, res) => {
+    const userId = req.params.id;
+    const user = dataUsers.users.find((user) => user.id == userId);
+    if (user) {
+        res.status(200).json(user);
+    } else {
+        res.status(404).json({ error: "User not found" });
+    }
+});
+
 router.get("/users/:id/todos", (req, res) => {
     const userId = req.params.id;
     console.log(userId);
@@ -22,11 +32,13 @@ router.get("/users/:id/todos", (req, res) => {
     }
 });
 
-router.get("/users/:id", (req, res) => {
+router.put("/users/:id", (req, res) => {
     const userId = req.params.id;
     const user = dataUsers.users.find((user) => user.id == userId);
     if (user) {
-        res.status(200).json(user);
+        user.username = req.body.username;
+        user.password = req.body.password;
+        res.status(200).json("User updated successfully");
     } else {
         res.status(404).json({ error: "User not found" });
     }

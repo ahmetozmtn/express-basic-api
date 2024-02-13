@@ -212,6 +212,21 @@ router.post("/users", (req, res) => {
 
 // DELETE
 
+router.delete("/users/all", (req, res) => {
+    fs.writeFile(
+        __dirname + "/../data/users.json",
+        JSON.stringify({ users: [] }),
+        "utf8",
+        (err) => {
+            if (err) {
+                console.log(err);
+                return res.status(500).json({ error: "Internal Server Error" });
+            }
+            res.status(200).json({ message: "All users deleted successfully" });
+        }
+    );
+});
+
 router.delete("/users/:id", (req, res) => {
     const userId = parseInt(req.params.id);
 

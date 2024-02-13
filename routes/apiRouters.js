@@ -210,4 +210,44 @@ router.post("/users", (req, res) => {
     });
 });
 
+// DELETE
+
+router.delete("/users/:id", (req, res) => {
+    const userId = parseInt(req.params.id);
+
+    fs.readFile(__dirname + "/../data/users.json", "utf8", (err, data) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: "Internal Server Error" });
+        }
+
+        let jsonData = JSON.parse(data);
+        const userIndex = jsonData.users.findIndex(
+            (user) => user.id === userId
+        );
+
+        if (userIndex === -1) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        // Remove the user from the array
+        jsonData.users.splice(userIndex, 1);
+
+        fs.writeFile(
+            __dirname + "/../data/users.json",
+            JSON.stringify(jsonData),
+            "utf8",
+            (err) => {
+                if (err) {
+                    console.error(err);
+                    return res
+                        .status(500)
+                        .json({ error: "Internal Server Error" });
+                }
+                res.status(200).json({ message: "User deleted successfully" });
+            }
+        );
+    });
+});
+
 module.exports = router;

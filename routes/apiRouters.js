@@ -137,6 +137,54 @@ router.put("/users/:id", (req, res) => {
 
 // POST
 
+router.post("/users/:id/todos", (req, res) => {
+    const userId = req.params.id;
+    const title = req.body.title;
+    const description = req.body.description;
+    const completed = req.body.completed;
+
+    fs.readFile(__dirname + "/../data/users.json", "utf8", (err, data) => {
+        if (err) {
+            console.error(err);
+            res.status(500).send("Internal Server Error");
+            return;
+        }
+
+        let users = JSON.parse(data).users;
+        const user = users.find((user) => user.id == userId);
+
+        if (!user) {
+            res.status(404).send("User not found");
+            return;
+        }
+
+        const newTodoId =
+            user.todos.length > 0
+                ? Math.max(...user.todos.map((todo) => todo.id)) + 1
+                : 1;
+        user.todos.push({
+            id: newTodoId,
+            title: title,
+            description: description,
+            completed: completed,
+        });
+
+        fs.writeFile(
+            __dirname + "/../data/users.json",
+            JSON.stringify({ users: users }, null, 2),
+            "utf8",
+            (err) => {
+                if (err) {
+                    console.error(err);
+                    res.status(500).send("Internal Server Error");
+                    return;
+                }
+                res.status(201).json("Success");
+            }
+        );
+    });
+});
+
 router.post("/users", (req, res) => {
     const newData = req.body;
     fs.readFile(__dirname + "/../data/users.json", "utf8", (err, data) => {

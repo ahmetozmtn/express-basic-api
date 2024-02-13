@@ -90,3 +90,17 @@ Bu projede kullanılan HTTP metotları ve kullanımı aşağıdaki gibidir.
             "password": "password"
         }
         ```
+
+-   Girilen ID'ye ait todo'yu günceller.
+
+    -   `http://localhost:3000/api/v1/users/:id/todos/:todoId`
+
+    -   Body;
+
+        ```json
+        {
+            "title": "title",
+            "description": "description",
+            "completed": true
+        }
+        ```

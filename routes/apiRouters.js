@@ -32,16 +32,68 @@ router.get("/users/:id/todos", (req, res) => {
     }
 });
 
-router.put("/users/:id", (req, res) => {
+router.put("/users/:id/todos/:todoId", (req, res) => {
     const userId = req.params.id;
+    const todoId = req.params.todoId;
     const user = dataUsers.users.find((user) => user.id == userId);
     if (user) {
-        user.username = req.body.username;
-        user.password = req.body.password;
-        res.status(200).json("User updated successfully");
+        const todo = user.todos.find((todo) => todo.id == todoId);
+        if (todo) {
+            todo.title = req.body.title;
+            todo.description = req.body.description;
+            todo.completed = req.body.completed;
+            res.status(200).json("Todo updated successfully");
+        } else {
+            res.status(404).json({ error: "Todo not found" });
+        }
     } else {
         res.status(404).json({ error: "User not found" });
     }
+});
+
+router.put("/users/:id", (req, res) => {
+    const userId = parseInt(req.params.id);
+    const username = req.body.username;
+    const password = req.body.password;
+
+    fs.readFile(__dirname + "/../data/users.json", "utf8", (err, data) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: "Internal Server Error" });
+        }
+
+        let jsonData = JSON.parse(data);
+        const userIndex = jsonData.users.findIndex(
+            (user) => user.id === userId
+        );
+
+        if (userIndex === -1) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        const updatedUser = {
+            ...jsonData.users[userIndex],
+            username: username,
+            password: password,
+        };
+
+        jsonData.users[userIndex] = updatedUser;
+
+        fs.writeFile(
+            __dirname + "/../data/users.json",
+            JSON.stringify(jsonData),
+            "utf8",
+            (err) => {
+                if (err) {
+                    console.error(err);
+                    return res
+                        .status(500)
+                        .json({ error: "Internal Server Error" });
+                }
+                res.status(200).json({ message: "User updated successfully" });
+            }
+        );
+    });
 });
 
 router.post("/users", (req, res) => {

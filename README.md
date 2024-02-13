@@ -91,3 +91,9 @@ Bu projede kullanılan HTTP metotları ve kullanımı aşağıdaki gibidir.
             "completed": true
         }
         ```
+
+## DELETE
+
+-   Girilen ID'ye ait kullanıcı bilgilerini siler.
+
+    -   `http://localhost:3000/api/v1/users/:id`

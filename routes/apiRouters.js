@@ -6,6 +6,8 @@ const dataUsers = require("../data/users.json");
 
 router.use(bodyParser.json());
 
+// GET
+
 router.get("/users", (req, res) => {
     res.status(200);
     res.json(dataUsers.users);
@@ -31,6 +33,8 @@ router.get("/users/:id/todos", (req, res) => {
         res.status(404).json({ error: "User not found" });
     }
 });
+
+// PUT
 
 router.put("/users/:id/todos/:todoId", (req, res) => {
     const userId = parseInt(req.params.id);
@@ -130,6 +134,8 @@ router.put("/users/:id", (req, res) => {
         );
     });
 });
+
+// POST
 
 router.post("/users", (req, res) => {
     const newData = req.body;

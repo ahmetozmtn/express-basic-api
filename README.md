@@ -59,20 +59,7 @@ Bu projede kullanılan HTTP metotları ve kullanımı aşağıdaki gibidir.
             "id": 1,
             "username": "username",
             "password": "password",
-            "todos": [
-                {
-                    "id": 1,
-                    "title": "title",
-                    "description": "description",
-                    "completed": false
-                },
-                {
-                    "id": 2,
-                    "title": "title",
-                    "description": "description",
-                    "completed": false
-                }
-            ]
+            "todos": []
         }
         ```
 

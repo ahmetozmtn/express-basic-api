@@ -32,76 +32,61 @@ npm start
 
 Bu projede kullanılan HTTP metotları ve kullanımı aşağıdaki gibidir.
 
--   ## GET
+## GET
 
-    Tüm kullanıcıları döndürür;
+-   Tüm kayıtları döndürür.
 
-        `http://localhost:3000/api/v1/users`
+    -   `http://localhost:3000/api/v1/users`
 
-    Girilen ID'ye ait kullanıcıyı döndürür;
+-   Girilen ID'ye ait kullanıcıyı döndürür;
 
-        `http://localhost:3000/api/v1/users/:id`
+    -   `http://localhost:3000/api/v1/users/:id`
 
-    Kullanıcın todo'larını döndürür
+-   Kullanıcın todo'larını döndürür
 
-        `http://localhost:3000/api/v1/users/:id/todos`
+    -   `http://localhost:3000/api/v1/users/:id/todos`
 
--   ## POST
+## POST
 
-    Kullanıcı oluşturur;
+-   Kullanıcı oluşturur.
 
-         `http://localhost:3000/api/v1/users`
+    -   `http://localhost:3000/api/v1/users`
 
-        Body;
+    -   Body;
 
-         ```
-            {
-                "id": 1,
-                "username": "username",
-                "password": "password",
-                "todos": [
-                    {
-                        "id": 1,
-                        "title": "title",
-                        "description": "description",
-                        "completed": false
-                    },
-                    {
-                        "id": 2,
-                        "title": "title",
-                        "description": "description",
-                        "completed": false
-                    }
-                ]
-            }
-         ```
+        ```json
+        {
+            "id": 1,
+            "username": "username",
+            "password": "password",
+            "todos": [
+                {
+                    "id": 1,
+                    "title": "title",
+                    "description": "description",
+                    "completed": false
+                },
+                {
+                    "id": 2,
+                    "title": "title",
+                    "description": "description",
+                    "completed": false
+                }
+            ]
+        }
+        ```
 
--   ## PUT
+## PUT
 
-    Girilen ID'ye ait kullanıcıyı günceller;
+-   Girilen ID'ye ait kullanıcı bilgilerini günceller.
 
-          `http://localhost:3000/api/v1/users/:id`
+    -   `http://localhost:3000/api/v1/users/:id`
 
-          Body;
+    -   Body;
 
-          ```
-              {
-                  "id": 1,
-                  "username": "username",
-                  "password": "password",
-                  "todos": [
-                      {
-                          "id": 1,
-                          "title": "title",
-                          "description": "description",
-                          "completed": false
-                      },
-                      {
-                          "id": 2,
-                          "title": "title",
-                          "description": "description",
-                          "completed": false
-                      }
-                  ]
-              }
-          ```
+        ```json
+        {
+            "username": "username",
+            "password": "password"
+        }
+        ```

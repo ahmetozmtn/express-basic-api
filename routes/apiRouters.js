@@ -33,22 +33,57 @@ router.get("/users/:id/todos", (req, res) => {
 });
 
 router.put("/users/:id/todos/:todoId", (req, res) => {
-    const userId = req.params.id;
-    const todoId = req.params.todoId;
-    const user = dataUsers.users.find((user) => user.id == userId);
-    if (user) {
-        const todo = user.todos.find((todo) => todo.id == todoId);
-        if (todo) {
-            todo.title = req.body.title;
-            todo.description = req.body.description;
-            todo.completed = req.body.completed;
-            res.status(200).json("Todo updated successfully");
-        } else {
-            res.status(404).json({ error: "Todo not found" });
+    const userId = parseInt(req.params.id);
+    const todoId = parseInt(req.params.todoId);
+    const title = req.body.title;
+    const description = req.body.description;
+    const completed = req.body.completed;
+
+    fs.readFile(__dirname + "/../data/users.json", "utf8", (err, data) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: "Internal Server Error" });
         }
-    } else {
-        res.status(404).json({ error: "User not found" });
-    }
+        let jsonData = JSON.parse(data);
+        const userIndex = jsonData.users.findIndex(
+            (user) => user.id === userId
+        );
+        if (userIndex === -1) {
+            return res.status(404).json({ error: "User not found" });
+        }
+        const todoIndex = jsonData.users[userIndex].todos.findIndex(
+            (todo) => todo.id === todoId
+        );
+        if (todoIndex === -1) {
+            return res.status(404).json({ error: "Todo not found" });
+        }
+
+        const updatedTodo = {
+            ...jsonData.users[userIndex].todos[todoIndex],
+            title: title,
+            description: description,
+            completed: completed,
+        };
+
+        jsonData.users[userIndex].todos[todoIndex] = updatedTodo;
+
+        fs.writeFile(
+            __dirname + "/../data/users.json",
+            JSON.stringify(jsonData),
+            "utf8",
+            (err) => {
+                if (err) {
+                    console.error(err);
+                    return res
+                        .status(500)
+                        .json({ error: "Internal Server Error" });
+                }
+                res.status(200).json({
+                    message: "User's todo updated successfully",
+                });
+            }
+        );
+    });
 });
 
 router.put("/users/:id", (req, res) => {

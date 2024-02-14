@@ -8,11 +8,13 @@ router.use(bodyParser.json());
 
 // GET
 
+// get all users
 router.get("/users", (req, res) => {
     res.status(200);
     res.json(dataUsers.users);
 });
 
+// get user by id
 router.get("/users/:id", (req, res) => {
     const userId = req.params.id;
     const user = dataUsers.users.find((user) => user.id == userId);
@@ -23,6 +25,7 @@ router.get("/users/:id", (req, res) => {
     }
 });
 
+// get user by id and their todos
 router.get("/users/:id/todos", (req, res) => {
     const userId = req.params.id;
     console.log(userId);
@@ -36,6 +39,7 @@ router.get("/users/:id/todos", (req, res) => {
 
 // PUT
 
+// update todo
 router.put("/users/:id/todos/:todoId", (req, res) => {
     const userId = parseInt(req.params.id);
     const todoId = parseInt(req.params.todoId);
@@ -90,6 +94,7 @@ router.put("/users/:id/todos/:todoId", (req, res) => {
     });
 });
 
+// update user
 router.put("/users/:id", (req, res) => {
     const userId = parseInt(req.params.id);
     const username = req.body.username;
@@ -137,6 +142,7 @@ router.put("/users/:id", (req, res) => {
 
 // POST
 
+// todo create
 router.post("/users/:id/todos", (req, res) => {
     const userId = req.params.id;
     const title = req.body.title;
@@ -185,6 +191,7 @@ router.post("/users/:id/todos", (req, res) => {
     });
 });
 
+// user create
 router.post("/users", (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
@@ -219,6 +226,7 @@ router.post("/users", (req, res) => {
 
 // DELETE
 
+// all user delete
 router.delete("/users/all", (req, res) => {
     fs.writeFile(
         __dirname + "/../data/users.json",
@@ -234,6 +242,7 @@ router.delete("/users/all", (req, res) => {
     );
 });
 
+// single user delete
 router.delete("/users/:id", (req, res) => {
     const userId = parseInt(req.params.id);
 
@@ -272,6 +281,7 @@ router.delete("/users/:id", (req, res) => {
     });
 });
 
+// single todo delete
 router.delete("/users/:id/todos/:todoId", (req, res) => {
     const userId = parseInt(req.params.id);
     const todoId = parseInt(req.params.todoId);

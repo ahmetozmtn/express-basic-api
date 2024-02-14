@@ -97,3 +97,7 @@ Bu projede kullanılan HTTP metotları ve kullanımı aşağıdaki gibidir.
 -   Girilen ID'ye ait kullanıcı bilgilerini siler.
 
     -   `http://localhost:3000/api/v1/users/:id`
+
+-   Tüm kullanıcıları siler.
+
+    -   `http://localhost:3000/api/v1/users/all`

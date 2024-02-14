@@ -179,21 +179,28 @@ router.post("/users/:id/todos", (req, res) => {
                     res.status(500).send("Internal Server Error");
                     return;
                 }
-                res.status(201).json("Success");
+                res.status(201).json("Todo created successfully");
             }
         );
     });
 });
 
 router.post("/users", (req, res) => {
-    const newData = req.body;
+    const username = req.body.username;
+    const password = req.body.password;
+    const todos = req.body.todos;
     fs.readFile(__dirname + "/../data/users.json", "utf8", (err, data) => {
         if (err) {
             console.log("Error: ", err);
             return res.status(500).json({ error: "Something went wrong" });
         }
         let jsonData = JSON.parse(data);
-        jsonData.users.push(newData);
+        jsonData.users.push({
+            id: jsonData.users.length + 1,
+            username: username,
+            password: password,
+            todos: todos,
+        });
         fs.writeFile(
             __dirname + "/../data/users.json",
             JSON.stringify(jsonData),

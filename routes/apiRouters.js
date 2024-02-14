@@ -272,4 +272,43 @@ router.delete("/users/:id", (req, res) => {
     });
 });
 
+router.delete("/users/:id/todos/:todoId", (req, res) => {
+    const userId = parseInt(req.params.id);
+    const todoId = parseInt(req.params.todoId);
+    fs.readFile(__dirname + "/../data/users.json", "utf8", (err, data) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).json({ error: "Internal Server Error" });
+        }
+        let jsonData = JSON.parse(data);
+        const userIndex = jsonData.users.findIndex(
+            (user) => user.id === userId
+        );
+        if (userIndex === -1) {
+            return res.status(404).json({ error: "User not found" });
+        }
+        const todoIndex = jsonData.users[userIndex].todos.findIndex(
+            (todo) => todo.id === todoId
+        );
+        if (todoIndex === -1) {
+            return res.status(404).json({ error: "Todo not found" });
+        }
+        jsonData.users[userIndex].todos.splice(todoIndex, 1);
+        fs.writeFile(
+            __dirname + "/../data/users.json",
+            JSON.stringify(jsonData),
+            "utf8",
+            (err) => {
+                if (err) {
+                    console.error(err);
+                    return res
+                        .status(500)
+                        .json({ error: "Internal Server Error" });
+                }
+                res.status(200).json({ message: "Todo deleted successfully" });
+            }
+        );
+    });
+});
+
 module.exports = router;

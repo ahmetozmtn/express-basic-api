@@ -185,7 +185,7 @@ router.post("/users/:id/todos", (req, res) => {
                     res.status(500).send("Internal Server Error");
                     return;
                 }
-                res.status(201).json("Todo created successfully");
+                res.status(201).json({ message: "Todo created successfully" });
             }
         );
     });
@@ -220,7 +220,7 @@ router.post("/users", (req, res) => {
                 }
             }
         );
-        res.status(200).json("User added successfully");
+        res.status(200).json({ message: "User added successfully" });
     });
 });
 

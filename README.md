@@ -101,3 +101,7 @@ Bu projede kullanılan HTTP metotları ve kullanımı aşağıdaki gibidir.
 -   Tüm kullanıcıları siler.
 
     -   `http://localhost:3000/api/v1/users/all`
+
+-   Girilen ID'ye ait kullanıcının todo'sunu siler.
+
+    -   `http://localhost:3000/api/v1/users/:id/todos/:todoId`

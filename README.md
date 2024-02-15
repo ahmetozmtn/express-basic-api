@@ -63,6 +63,20 @@ Bu projede kullanılan HTTP metotları ve kullanımı aşağıdaki gibidir.
         }
         ```
 
+-   Kullanıcıya todo ekler.
+
+    -   `http://localhost:3000/api/v1/users/:id/todos`
+
+    -   Body;
+
+        ```json
+        {
+            "title": "title",
+            "description": "description",
+            "completed": false
+        }
+        ```
+
 ## PUT
 
 -   Girilen ID'ye ait kullanıcı bilgilerini günceller.
